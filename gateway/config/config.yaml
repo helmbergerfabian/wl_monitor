@@ -1,0 +1,16 @@
+mqtt:
+  address: "localhost"
+  port: 1883
+  topic_prefix: "ubahn"
+
+stations:
+  - name: "Heiligenstadt"
+    rbl: 4405
+  - name: "Huetteldorf"
+    rbl: 4432
+
+fetch_interval_sec: 10  # fetch interval in seconds
+cache_size: 1
+
+wienerlinien:
+  sender: "YOUR_API_KEY"  # optional but supported by the API

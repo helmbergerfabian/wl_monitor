@@ -1,0 +1,17 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Build artifacts
+*.egg-info/
+build/
+dist/
+
+# Env
+.env
+.venv/
+
+# OS junk
+.DS_Store
+

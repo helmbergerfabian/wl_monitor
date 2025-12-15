@@ -1,0 +1,26 @@
+[project]
+name = "wl_monitor"
+version = "0.1.0"
+description = "Gateway that fetches Wiener Linien data and publishes to MQTT."
+authors = [
+  { name = "Fabian Helmberger", email = "helmbergerfabian@gmail.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+
+dependencies = [
+  "paho-mqtt",
+  "requests",
+  "pyyaml",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["wl_monitor"]
+
+[tool.black]
+line-length = 88
