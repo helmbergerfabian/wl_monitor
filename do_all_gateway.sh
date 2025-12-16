@@ -10,6 +10,13 @@ source "$HOME/miniconda3/etc/profile.d/conda.sh"
 # activate conda env
 conda activate wl_monitor
 
+
+# install the package
+cd "$HOME/gitrepos/wl_monitor/gateway"
+pip install .
+
 # start the publisher
 cd "$HOME/gitrepos/wl_monitor/gateway/src/wl_monitor"
 python main_publish.py
+
+
