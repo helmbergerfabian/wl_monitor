@@ -1,6 +1,7 @@
 import time
 import json
 import paho.mqtt.client as mqtt
+from datetime import datetime
 
 
 def extract_departures(api_response):
@@ -39,7 +40,7 @@ def extract_departures(api_response):
             })
 
     except Exception as e:
-        print("⚠️ Failed to parse API response:", e)
+        print(f"[{datetime.now()}]: ⚠️ Failed to parse API response:", e)
 
     return result
 
@@ -59,7 +60,7 @@ def publish_departures(
 
     topic = f"{topic_prefix}/{station_name}"
     mqtt_client.publish(topic, json.dumps(payload), retain=True)
-    print(f"📡 Published to {topic} (idx={idx})")
+    print(f"[{datetime.now()}]: 📡 Published to {topic} (idx={idx})")
 
 
 def run_publisher(api, stations, mqtt_cfg, client):
@@ -90,6 +91,6 @@ def run_publisher(api, stations, mqtt_cfg, client):
                 )
             deps_old = [list(d) for d in deps]
         else:
-            print("no changes!")
+            print(f"[{datetime.now()}]: no changes!")
 
         time.sleep(10)

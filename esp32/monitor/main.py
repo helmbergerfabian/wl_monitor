@@ -5,6 +5,7 @@ from umqtt.simple import MQTTClient
 from machine import I2C, Pin
 from lcd.machine_i2c_lcd import I2cLcd
 
+
 # -----------------------------
 # CONFIGURATION
 # -----------------------------

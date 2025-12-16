@@ -5,6 +5,7 @@ from typing import List, Dict, Optional
 from cachetools import TTLCache
 from typing import List, Dict
 import requests
+from datetime import datetime
 
 import os
 CACHE_SIZE = int(os.environ.get("cache_size"))
@@ -21,7 +22,7 @@ class WienerLinienAPI:
 
     def fetch_departures(self, stop_id: int) -> List[Dict]:
         if stop_id in self.cache:
-            print("using cached data")
+            print(f"[{datetime.now()}]: using cached data")
             return self.cache[stop_id]
 
         params = {
@@ -36,11 +37,11 @@ class WienerLinienAPI:
             response.raise_for_status()
             parsed = self._parse_response(response.json())
             self.cache[stop_id] = parsed
-            print("fetched new data")
+            print(f"[{datetime.now()}]: fetched new data")
             return parsed
 
         except Exception as e:
-            print(f"[ERROR] Failed to fetch departures for stopId={stop_id}: {e}")
+            print(f"[{datetime.now()}]: [ERROR] Failed to fetch departures for stopId={stop_id}: {e}")
             return []
         
     def _parse_response(self, json_data: Dict) -> List[Dict]:

@@ -2,6 +2,7 @@ import os
 import subprocess
 import sys
 import argparse
+from datetime import datetime
 
 # --- Argument parser ---
 parser = argparse.ArgumentParser(description="Flash firmware to ESP32 using esptool.")
@@ -19,32 +20,32 @@ args = parser.parse_args()
 
 # --- Helper function ---
 def run_command(cmd):
-    print(f"\n>>> Running: {' '.join(cmd)}")
+    print(f"[{datetime.now()}]: \n>>> Running: {' '.join(cmd)}")
     try:
         subprocess.run(cmd, check=True)
-        print("✅ Success")
+        print(f"[{datetime.now()}]: ✅ Success")
     except subprocess.CalledProcessError as e:
-        print("❌ Error:", e)
+        print(f"[{datetime.now()}]: ❌ Error:", e)
         sys.exit(1)
 
 # --- Flashing steps ---
 if __name__ == "__main__":
     if not args.erase_only:
         if not args.firmware:
-            print("❌ No firmware specified. Provide a .bin file or use --erase-only.")
+            print(f"[{datetime.now()}]: ❌ No firmware specified. Provide a .bin file or use --erase-only.")
             sys.exit(1)
         if not os.path.exists(args.firmware):
-            print(f"❌ Firmware not found: {args.firmware}")
+            print(f"[{datetime.now()}]: ❌ Firmware not found: {args.firmware}")
             sys.exit(1)
 
-    print(f"🔌 Flashing ESP32 on port {args.port}...")
+    print(f"[{datetime.now()}]: 🔌 Flashing ESP32 on port {args.port}...")
 
     # Step 1: Erase flash
     run_command(["esptool", "-p", args.port, "erase-flash"])
 
     # Stop here if erase-only
     if args.erase_only:
-        print("🧹 Flash erase completed. Exiting (--erase-only).")
+        print(f"[{datetime.now()}]: 🧹 Flash erase completed. Exiting (--erase-only).")
         sys.exit(0)
 
     # Step 2: Write firmware
